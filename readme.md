@@ -1,3 +1,3 @@
 # Small Repo
 
-Adding a readme here to test small repo event
+Adding a readme here to test small repo events
