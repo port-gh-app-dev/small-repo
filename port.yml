@@ -1,4 +1,4 @@
-identifier: myEntity
+identifier: testEntity
 title: My Entity
 blueprint: files
 properties:
