@@ -1,0 +1,12 @@
+identifier: myEntity
+title: My Entity
+blueprint: myBlueprint
+properties:
+  myStringProp: myValue
+  myNumberProp: 5
+  myUrlProp: https://example.com
+relations:
+  mySingleRelation: myTargetEntity
+  myManyRelation:
+    - myTargetEntity1
+    - myTargetEntity2
