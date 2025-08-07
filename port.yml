@@ -2,11 +2,7 @@ identifier: testEntity
 title: My Entity
 blueprint: files
 properties:
-  myStringProp: myValue
-  myNumberProp: 5
-  myUrlProp: https://example.com
+  path: /path
+  name: entity
 relations:
-  mySingleRelation: myTargetEntity
-  myManyRelation:
-    - myTargetEntity1
-    - myTargetEntity2
+  repository: small-repo
