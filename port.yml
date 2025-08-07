@@ -1,6 +1,6 @@
 identifier: myEntity
 title: My Entity
-blueprint: myBlueprint
+blueprint: files
 properties:
   myStringProp: myValue
   myNumberProp: 5
