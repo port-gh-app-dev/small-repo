@@ -1,8 +1,10 @@
-identifier: testEntity
-title: My Entity
-blueprint: files
-properties:
-  path: /path
-  name: entity
-relations:
-  repository: small-repo
+- identifier: some_identifier
+  title: Some Title
+  team: []
+  icon: DefaultBlueprint
+  blueprint: files
+  properties:
+    name: string
+    path: string
+  relations:
+    repository: related_entity_identifier
