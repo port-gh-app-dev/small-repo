@@ -1,10 +1,9 @@
 - identifier: some_identifier
   title: Some Title
-  team: [example_team]
-  icon: DefaultBlueprint
+  icon: Github
   blueprint: files
   properties:
-    name: string
-    path: string
+    name: file for team
+    path: path
   relations:
     repository: small-repo
