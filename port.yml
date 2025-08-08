@@ -1,6 +1,6 @@
 - identifier: some_identifier
   title: Some Title
-  team: []
+  team: [example_team]
   icon: DefaultBlueprint
   blueprint: files
   properties:
