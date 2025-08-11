@@ -1,7 +1,7 @@
 - identifier: some_identifier
   title: Some Title
   icon: Github
-  team: [Example Team]
+  team: [example_team]
   blueprint: files
   properties:
     name: file for team
