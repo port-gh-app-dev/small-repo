@@ -7,7 +7,7 @@ original_content=$(<port.yml)
 echo "$original_content" > port.yml
 
 # Append the content 999 more times, separated by '---'
-for i in {1..999}
+for i in {1..4999}
 do
   echo "---" >> port.yml
   echo "$original_content" >> port.yml
