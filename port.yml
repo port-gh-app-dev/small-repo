@@ -70,7 +70,7 @@ icon: Github
 team: example_team
 blueprint: files
 properties:
-  name: file for team
+  name: file for teams
   path: path
 relations:
   repository: small-repo
