@@ -1,23 +1,21 @@
-branch: test
----
-identifier: some_identifier-1
-title: Some Title
-icon: Github
-team: example_team
-blueprint: files
-properties:
-  name: file for team
-  path: path
-relations:
-  repository: small-repo
----
-identifier: some_identifier-2
-title: Some Title
-icon: Github
-team: example_team
-blueprint: files
-properties:
-  name: file for team
-  path: path
-relations:
-  repository: small-repo
+- identifier: some_identifier-1
+  title: Some Title
+  icon: Github
+  team: example_team
+  blueprint: files
+  properties:
+    name: file for team
+    path: path
+  relations:
+    repository: small-repo
+
+- identifier: some_identifier-2
+  title: Some Title
+  icon: Github
+  team: example_team
+  blueprint: files
+  properties:
+    name: file for team
+    path: path
+  relations:
+    repository: small-repo
