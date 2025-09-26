@@ -15,4 +15,4 @@ jobs:
           port_client_secret: ${{ secrets.OCEAN__PORT__CLIENT_SECRET }}
           port_base_url: https://api.getport.io
           config: |
-            cluster_conf_mapping: ${{ secrets.OCEAN__INTEGRATION__CONFIG__CLUSTER_CONF_MAPPING }}
+            cluster_conf_mapping: ${{ secrets.OCEAN__INTEGRATION__CONFIG__CLUSTER_CONF_MAPPING }} #AI! make another step that echos the type of this value
