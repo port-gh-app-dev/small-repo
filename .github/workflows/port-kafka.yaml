@@ -1,0 +1,18 @@
+name: Kafka Exporter Workflow
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+jobs:
+  run-integration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30 # Set a time limit for the job
+    steps:
+      - uses: port-labs/ocean-sail@v1
+        with:
+          type: 'kafka'
+          port_client_id: ${{ secrets.OCEAN__PORT__CLIENT_ID }}
+          port_client_secret: ${{ secrets.OCEAN__PORT__CLIENT_SECRET }}
+          port_base_url: https://api.getport.io
+          config: |
+            cluster_conf_mapping: ${{ secrets.OCEAN__INTEGRATION__CONFIG__CLUSTER_CONF_MAPPING }}
