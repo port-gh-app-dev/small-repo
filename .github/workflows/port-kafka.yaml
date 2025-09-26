@@ -8,6 +8,15 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30 # Set a time limit for the job
     steps:
+      - name: Echo secret type
+        shell: bash
+        run: |
+          SECRET='${{ secrets.OCEAN__INTEGRATION__CONFIG__CLUSTER_CONF_MAPPING }}'
+          if jq -e . >/dev/null 2>&1 <<< "$SECRET"; then
+              echo "Secret is a valid JSON string"
+          else
+              echo "Secret is a simple string"
+          fi
       - uses: port-labs/ocean-sail@v1
         with:
           type: 'kafka'
@@ -15,4 +24,4 @@ jobs:
           port_client_secret: ${{ secrets.OCEAN__PORT__CLIENT_SECRET }}
           port_base_url: https://api.getport.io
           config: |
-            cluster_conf_mapping: ${{ secrets.OCEAN__INTEGRATION__CONFIG__CLUSTER_CONF_MAPPING }} #AI! make another step that echos the type of this value
+            cluster_conf_mapping: ${{ secrets.OCEAN__INTEGRATION__CONFIG__CLUSTER_CONF_MAPPING }}
