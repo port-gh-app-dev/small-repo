@@ -12,7 +12,7 @@ jobs:
         shell: bash
         run: |
           SECRET='${{ secrets.OCEAN__INTEGRATION__CONFIG__CLUSTER_CONF_MAPPING }}'
-          if jq -e . >/dev/null 2>&1 <<< "$SECRET"; then
+          if jq -e . >/dev/null <<< "$SECRET"; then
               echo "Secret is a valid JSON string"
           else
               echo "Secret is a simple string"
