@@ -6,5 +6,6 @@ blueprint: files
 properties:
   name: file for team
   path: path
+  different: property
 relations:
   repository: small-repo
