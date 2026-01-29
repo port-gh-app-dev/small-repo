@@ -1,6 +1,6 @@
 - identifier: terraform-module/iam-client-v0.0.5
   title: "iam-client:v0.0.5"
-  blueprint: terraform_module-release
+  blueprint: file
   properties:
     release: v0.0.5
     state: deprecated
@@ -9,7 +9,7 @@
 
 - identifier: terraform-module/iam-client-v0.0.6
   title: "iam-client:v0.0.6"
-  blueprint: terraform_module-release
+  blueprint: file
   properties:
     release: v0.0.6
     state: deprecated
@@ -18,7 +18,7 @@
 
 - identifier: terraform-module/iam-client-v0.0.7
   title: "iam-client:v0.0.7"
-  blueprint: terraform_module-release
+  blueprint: file
   properties:
     release: v0.0.7
     state: deprecated
@@ -27,7 +27,7 @@
 
 - identifier: terraform-module/iam-client-v1.0.0
   title: "iam-client:v1.0.0"
-  blueprint: terraform_module-release
+  blueprint: file
   properties:
     release: v1.0.0
     state: deprecated
