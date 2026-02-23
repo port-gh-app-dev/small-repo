@@ -1,0 +1,11 @@
+identifier: some_identifier
+title: Some Title
+icon: Github
+team: example_team
+blueprint: files
+properties:
+  name: file for team
+  path: path
+  different: property
+relations:
+  repository: small-repo
