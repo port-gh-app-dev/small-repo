@@ -25,7 +25,7 @@
   relations:
     module: theapsgroup/Platform/Devops/Terraform-Modules-Subgroup/iam-client
 
-- identifier: terraform-module/iam-client-v1.0.0
+- identifier: terraform-port/iam-client-v1.0.0
   title: "iam-client:v1.0.0"
   blueprint: file
   properties:
