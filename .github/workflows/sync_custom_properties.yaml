@@ -23,6 +23,7 @@ jobs:
         with:
           clientId: ${{ secrets.PORT_CLIENT_ID }}
           clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
+          baseUrl: https://api.us.port.io
           operation: PATCH_RUN
           runId: ${{ fromJson(inputs.port_context).runId }}
           logMessage: |
@@ -80,6 +81,7 @@ jobs:
         with:
           clientId: ${{ secrets.PORT_CLIENT_ID }}
           clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
+          baseUrl: https://api.us.port.io
           operation: PATCH_RUN
           runId: ${{ fromJson(inputs.port_context).runId }}
           logMessage: |
@@ -91,6 +93,7 @@ jobs:
         with:
           clientId: ${{ secrets.PORT_CLIENT_ID }}
           clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
+          baseUrl: https://api.us.port.io
           operation: PATCH_RUN
           runId: ${{ fromJson(inputs.port_context).runId }}
           logMessage: |
