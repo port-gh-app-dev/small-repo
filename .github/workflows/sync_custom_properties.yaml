@@ -1,0 +1,97 @@
+name: Sync GitHub Repository Custom Properties
+
+on:
+  workflow_dispatch:
+    inputs:
+      org_name:
+        required: true
+        type: string
+      port_context:
+        required: true
+        type: string
+      custom_properties_with_values:
+        required: true
+        type: string
+
+jobs:
+  sync-custom-properties:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Inform sync started
+        uses: port-labs/port-github-action@v1
+        with:
+          clientId: ${{ secrets.PORT_CLIENT_ID }}
+          clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
+          operation: PATCH_RUN
+          runId: ${{ fromJson(inputs.port_context).runId }}
+          logMessage: |
+            Syncing GitHub repository custom properties from Port scorecards... 🔄
+
+      - name: Update GitHub repository custom properties
+        id: sync_props
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          REPO_NAME: ${{ fromJson(inputs.port_context).entity }}
+          ORG_NAME: ${{ inputs.org_name }}
+          CUSTOM_PROPERTIES: ${{ inputs.custom_properties_with_values }}
+        run: |
+          echo "Preparing payload for repository: $REPO_NAME"
+
+          PAYLOAD=$(jq -n \
+            --arg repo "$REPO_NAME" \
+            --argjson props "$CUSTOM_PROPERTIES" \
+            '{
+              repository_names: [$repo],
+              properties: $props
+            }')
+
+          echo "Payload prepared successfully"
+
+          RESPONSE=$(mktemp)
+          HTTP_STATUS=$(curl -s -o "$RESPONSE" -w "%{http_code}" \
+            -X PATCH \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            -H "Content-Type: application/json" \
+            -d "$PAYLOAD" \
+            "https://api.github.com/orgs/$ORG_NAME/properties/values")
+
+          echo "HTTP Status: $HTTP_STATUS"
+          echo "GitHub response:"
+          cat "$RESPONSE"
+
+          if [ "$HTTP_STATUS" -eq 200 ] || [ "$HTTP_STATUS" -eq 204 ]; then
+            echo "Custom properties updated successfully."
+            echo "sync_successful=true" >> $GITHUB_ENV
+          else
+            echo "Failed to update custom properties."
+            echo "sync_successful=false" >> $GITHUB_ENV
+            echo "response_body<<EOF" >> $GITHUB_OUTPUT
+            cat "$RESPONSE" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+
+      - name: Inform sync completed
+        if: ${{ env.sync_successful == 'true' }}
+        uses: port-labs/port-github-action@v1
+        with:
+          clientId: ${{ secrets.PORT_CLIENT_ID }}
+          clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
+          operation: PATCH_RUN
+          runId: ${{ fromJson(inputs.port_context).runId }}
+          logMessage: |
+            GitHub repository custom properties synced successfully! ✅
+
+      - name: Inform sync failed
+        if: ${{ failure() }}
+        uses: port-labs/port-github-action@v1
+        with:
+          clientId: ${{ secrets.PORT_CLIENT_ID }}
+          clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
+          operation: PATCH_RUN
+          runId: ${{ fromJson(inputs.port_context).runId }}
+          logMessage: |
+            Failed to sync GitHub repository custom properties. ❌
