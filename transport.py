@@ -39,7 +39,7 @@ class Transportation:
         minutes = hours * 60
         return f"Estimated travel time for {distance} km: {hours:.2f} hrs ({minutes:.0f} mins)"
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         status = "moving" if self.is_moving else "stopped"
         return (
             f"Transportation(name={self.name!r}, speed={self.speed} km/h, "
