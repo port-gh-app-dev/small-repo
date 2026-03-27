@@ -58,24 +58,22 @@ if __name__ == "__main__":
     print(bus.disembark(5))
     print(bus.stop())
     print(bus)
-```
 
-**What it includes:**
-
-- **`__init__`** — sets up name, speed, capacity, fuel type, and tracks passengers + motion state
-- **`board(n)`** — adds passengers with capacity validation
-- **`disembark(n)`** — removes passengers safely
-- **`depart()`** — starts movement (requires at least one passenger)
-- **`stop()`** — halts the vehicle
-- **`travel_time(distance)`** — estimates travel duration for a given distance
-- **`__repr__`** — clean string representation for debugging
-
-**Sample output:**
-```
-15 passenger(s) boarded. (15/40 seats filled)
-Not enough space! Only 25 seat(s) available.
-City Bus is now moving at 60 km/h.
-Estimated travel time for 120 km: 2.00 hrs (120 mins)
-5 passenger(s) disembarked. (10/40 seats filled)
-City Bus has stopped.
-Transportation(name='City Bus', speed=60 km/h, capacity=40, fuel=diesel, status=stopped)
+# What it includes:
+#
+# - __init__ — sets up name, speed, capacity, fuel type, and tracks passengers + motion state
+# - board(n) — adds passengers with capacity validation
+# - disembark(n) — removes passengers safely
+# - depart() — starts movement (requires at least one passenger)
+# - stop() — halts the vehicle
+# - travel_time(distance) — estimates travel duration for a given distance
+# - __repr__ — clean string representation for debugging
+#
+# Sample output:
+# 15 passenger(s) boarded. (15/40 seats filled)
+# Not enough space! Only 25 seat(s) available.
+# City Bus is now moving at 60 km/h.
+# Estimated travel time for 120 km: 2.00 hrs (120 mins)
+# 5 passenger(s) disembarked. (10/40 seats filled)
+# City Bus has stopped.
+# Transportation(name='City Bus', speed=60 km/h, capacity=40, fuel=diesel, status=stopped)
