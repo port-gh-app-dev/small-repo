@@ -33,3 +33,12 @@
     state: deprecated
   relations:
     module: theapsgroup/Platform/Devops/Terraform-Modules-Subgroup/iam-client
+
+- identifier: terraform-module/iam-client-v1.0.0
+  title: "iam-client:v1.0.0"
+  blueprint: file
+  properties:
+    release: v1.0.0
+    state: deprecated
+  relations:
+    module: theapsgroup/Platform/Devops/Terraform-Modules-Subgroup/iam-client
