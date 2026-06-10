@@ -4,6 +4,7 @@
   properties:
     release: v0.0.5
     state: deprecated
+    has_answer: yes
   relations:
     module: theapsgroup/Platform/Devops/Terraform-Modules-Subgroup/iam-client
 
@@ -13,6 +14,7 @@
   properties:
     release: v0.0.6
     state: deprecated
+    has_answer: no
   relations:
     module: theapsgroup/Platform/Devops/Terraform-Modules-Subgroup/iam-client
 
@@ -22,6 +24,7 @@
   properties:
     release: v0.0.7
     state: deprecated
+    has_answer: no
   relations:
     module: theapsgroup/Platform/Devops/Terraform-Modules-Subgroup/iam-client
 
@@ -31,6 +34,7 @@
   properties:
     release: v1.0.0
     state: deprecated
+    has_answer: yes
   relations:
     module: theapsgroup/Platform/Devops/Terraform-Modules-Subgroup/iam-client
 
@@ -40,5 +44,6 @@
   properties:
     release: v1.0.0
     state: deprecated
+    has_answer: yes
   relations:
     module: theapsgroup/Platform/Devops/Terraform-Modules-Subgroup/iam-client
