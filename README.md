@@ -87,8 +87,10 @@ small-repo/
 | Workflow | Trigger | Purpose |
 |----------|---------|---------|
 | **Build** (`build.yaml`) | Push to `main`, Pull Request | SonarQube static analysis |
-| **Kafka Exporter** (`port-kafka.yaml`) | Push to `main`, Manual | Port.io Kafka integration via Ocean |
+| **Kafka Exporter** (`port-kafka.yaml`) ⚠️ | Push to `main`, Manual | Port.io Kafka integration via Ocean<br/>**Status**: Requires configuration ([Setup Guide](.github/workflows/KAFKA_WORKFLOW_SETUP.md)) |
 | **Sync Custom Properties** (`sync_custom_properties.yaml`) | Manual | Sync GitHub repository custom properties to Port scorecards |
+
+> ⚠️ **Kafka Exporter Workflow Note**: The validation error (Docker env file whitespace) was fixed in July 2026. The workflow currently times out because the Kafka broker is configured to connect to `localhost:9092`, which doesn't exist in GitHub Actions runners. See the [Kafka Workflow Setup Guide](.github/workflows/KAFKA_WORKFLOW_SETUP.md) for configuration options.
 
 ## Required Secrets
 
