@@ -29,6 +29,8 @@ jobs:
           python -m py_compile *.py || echo "No Python files to compile or compilation errors found"
           echo "Build check completed successfully"
   
+  # Note: SonarQube scan requires SONAR_TOKEN secret to be configured in repository settings.
+  # The job is set to continue-on-error to prevent blocking CI if the token is not configured.
   sonarqube:
     name: SonarQube (Optional)
     runs-on: ubuntu-latest
