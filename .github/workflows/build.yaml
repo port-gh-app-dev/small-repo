@@ -6,9 +6,12 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
+  # Note: SonarQube scan requires SONAR_TOKEN secret to be configured in repository settings.
+  # The job is set to continue-on-error to prevent blocking CI if the token is not configured.
   sonarqube:
     name: SonarQube
     runs-on: ubuntu-latest
+    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
         with:
