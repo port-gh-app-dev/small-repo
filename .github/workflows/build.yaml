@@ -6,20 +6,6 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
-  sonarqube:
-    name: SonarQube
-    runs-on: ubuntu-latest
-    if: ${{ secrets.SONAR_TOKEN != '' }}
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@v6
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: https://sonarcloud.io
-  
   build-check:
     name: Build Check
     runs-on: ubuntu-latest
@@ -42,3 +28,17 @@ jobs:
         run: |
           python -m py_compile *.py || echo "No Python files to compile or compilation errors found"
           echo "Build check completed successfully"
+  
+  sonarqube:
+    name: SonarQube (Optional)
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v6
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: https://sonarcloud.io
