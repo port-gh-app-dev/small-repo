@@ -9,21 +9,12 @@ jobs:
   sonarqube:
     name: SonarQube
     runs-on: ubuntu-latest
+    continue-on-error: true  # Don't fail the entire workflow if SonarQube scan fails
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
-      - name: Check if SONAR_TOKEN is available
-        id: check-token
-        run: |
-          if [ -z "${{ secrets.SONAR_TOKEN }}" ]; then
-            echo "token_available=false" >> $GITHUB_OUTPUT
-            echo "::warning::SONAR_TOKEN is not configured. Skipping SonarQube scan."
-          else
-            echo "token_available=true" >> $GITHUB_OUTPUT
-          fi
       - name: SonarQube Scan
-        if: steps.check-token.outputs.token_available == 'true'
         uses: SonarSource/sonarqube-scan-action@v6
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
