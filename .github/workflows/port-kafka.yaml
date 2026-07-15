@@ -7,21 +7,36 @@ jobs:
   run-integration:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    continue-on-error: true
     steps:
+      - name: Check if secrets are configured
+        id: check-secrets
+        run: |
+          if [ -z "${{ secrets.OCEAN__PORT__CLIENT_ID }}" ] || [ -z "${{ secrets.OCEAN__PORT__CLIENT_SECRET }}" ] || [ -z "${{ secrets.OCEAN__INTEGRATION__CONFIG__CLUSTER_CONF_MAPPING }}" ]; then
+            echo "⚠️  Kafka Exporter secrets are not fully configured"
+            echo "configured=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          echo "configured=true" >> $GITHUB_OUTPUT
+      
       - name: Validate and minify cluster config
+        if: steps.check-secrets.outputs.configured == 'true'
         id: prepare-config
         shell: bash
         run: |
           SECRET='${{ secrets.OCEAN__INTEGRATION__CONFIG__CLUSTER_CONF_MAPPING }}'
-          if jq -e . >/dev/null <<< "$SECRET"; then
-              echo "Secret is a valid JSON string"
+          if jq -e . >/dev/null 2>&1 <<< "$SECRET"; then
+              echo "✓ Secret is valid JSON"
               MINIFIED=$(jq -c . <<< "$SECRET")
               echo "cluster_conf_mapping=$MINIFIED" >> $GITHUB_OUTPUT
           else
-              echo "Secret is a simple string"
+              echo "❌ Secret is not valid JSON"
               exit 1
           fi
-      - uses: port-labs/ocean-sail@v1
+      
+      - name: Run Port Ocean integration
+        if: steps.check-secrets.outputs.configured == 'true'
+        uses: port-labs/ocean-sail@v1
         with:
           type: 'kafka'
           port_client_id: ${{ secrets.OCEAN__PORT__CLIENT_ID }}
@@ -29,3 +44,8 @@ jobs:
           port_base_url: https://api.getport.io
         env:
           OCEAN__INTEGRATION__CONFIG__CLUSTER_CONF_MAPPING: ${{ steps.prepare-config.outputs.cluster_conf_mapping }}
+      
+      - name: Configuration reminder
+        if: steps.check-secrets.outputs.configured == 'false'
+        run: |
+          echo "::notice title=Kafka Exporter Configuration::The Kafka Exporter Workflow requires the following secrets to be configured: OCEAN__PORT__CLIENT_ID, OCEAN__PORT__CLIENT_SECRET, and OCEAN__INTEGRATION__CONFIG__CLUSTER_CONF_MAPPING"
