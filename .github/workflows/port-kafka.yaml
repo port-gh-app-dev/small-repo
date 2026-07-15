@@ -7,17 +7,19 @@ jobs:
   run-integration:
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    env:
-      OCEAN__INTEGRATION__CONFIG__CLUSTER_CONF_MAPPING: ${{ secrets.OCEAN__INTEGRATION__CONFIG__CLUSTER_CONF_MAPPING }}
     steps:
-      - name: Echo secret type
+      - name: Validate and minify cluster config
+        id: prepare-config
         shell: bash
         run: |
           SECRET='${{ secrets.OCEAN__INTEGRATION__CONFIG__CLUSTER_CONF_MAPPING }}'
           if jq -e . >/dev/null <<< "$SECRET"; then
               echo "Secret is a valid JSON string"
+              MINIFIED=$(jq -c . <<< "$SECRET")
+              echo "cluster_conf_mapping=$MINIFIED" >> $GITHUB_OUTPUT
           else
               echo "Secret is a simple string"
+              exit 1
           fi
       - uses: port-labs/ocean-sail@v1
         with:
@@ -25,3 +27,5 @@ jobs:
           port_client_id: ${{ secrets.OCEAN__PORT__CLIENT_ID }}
           port_client_secret: ${{ secrets.OCEAN__PORT__CLIENT_SECRET }}
           port_base_url: https://api.getport.io
+        env:
+          OCEAN__INTEGRATION__CONFIG__CLUSTER_CONF_MAPPING: ${{ steps.prepare-config.outputs.cluster_conf_mapping }}
